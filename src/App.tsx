@@ -28,40 +28,26 @@ import {
   PlayCircle
 } from "lucide-react";
 import { useState, useEffect, ReactNode, FormEvent, memo } from "react";
-// @ts-ignore
 import logo from "./logo.png";
-// @ts-ignore
 import logoWebp from "./logo.webp";
-// @ts-ignore
 import imgPainel from "./painel.png";
-// @ts-ignore
 import imgPainelWebp from "./painel.webp";
-// @ts-ignore
 import imgPainel800 from "./painel-800.webp";
-// @ts-ignore
 import imgPainel1200 from "./painel-1200.webp";
-// @ts-ignore
 import imgMetas from "./metas.png";
-// @ts-ignore
 import imgMetasWebp from "./metas.webp";
-// @ts-ignore
 import imgMetas800 from "./metas-800.webp";
-// @ts-ignore
 import imgMetas1200 from "./metas-1200.webp";
-// @ts-ignore
-import imgProjecoes from "./projeções.png";
-// @ts-ignore
-import imgProjecoesWebp from "./projeções.webp";
-// @ts-ignore
-import imgProjecoes800 from "./projeções-800.webp";
-// @ts-ignore
-import imgProjecoes1200 from "./projeções-1200.webp";
-// @ts-ignore
-import imgTelaInicial from "./tela inicial.webp";
-// @ts-ignore
+import imgProjecoes from "./projecoes.png";
+import imgProjecoesWebp from "./projecoes.webp";
+import imgProjecoes800 from "./projecoes-800.webp";
+import imgProjecoes1200 from "./projecoes-1200.webp";
+import imgTelaInicial from "./tela-inicial.webp";
+import imgTelaInicialPng from "./tela-inicial.png";
 import imgTutorial from "./tutorial.webp";
-// @ts-ignore
-import imgCriarConta from "./criar conta.webp";
+import imgTutorialPng from "./tutorial.png";
+import imgCriarConta from "./criar-conta.webp";
+import imgCriarContaPng from "./criar-conta.png";
 
 const ContactModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
   const [name, setName] = useState("");
@@ -395,23 +381,26 @@ const HowItWorks = memo(() => (
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
       {[
-        { 
-          icon: UserPlus, 
-          title: "1. Cadastro Rápido", 
+        {
+          icon: UserPlus,
+          title: "1. Cadastro Rápido",
           desc: "Crie sua conta em segundos usando seu e-mail. Sem burocracia e pronto para usar.",
-          image: imgCriarConta
+          image: imgCriarContaPng,
+          webp: imgCriarConta
         },
-        { 
-          icon: Settings2, 
-          title: "2. Perfil Profissional", 
+        {
+          icon: Settings2,
+          title: "2. Perfil Profissional",
           desc: "Configure os dados da sua atividade para personalizar o sistema para sua realidade de negócio.",
-          image: imgTelaInicial
+          image: imgTelaInicialPng,
+          webp: imgTelaInicial
         },
-        { 
-          icon: PlayCircle, 
-          title: "3. Tutorial Guiado", 
+        {
+          icon: PlayCircle,
+          title: "3. Tutorial Guiado",
           desc: "Após a conclusão do cadastro você é direcionado ao tutorial, para entender as principais funcionalidades na prática.",
-          image: imgTutorial
+          image: imgTutorialPng,
+          webp: imgTutorial
         }
       ].map((step, i) => (
         <motion.div 
@@ -435,16 +424,20 @@ const HowItWorks = memo(() => (
           <p className="text-brand-text-muted leading-relaxed mb-8">{step.desc}</p>
           
           {step.image && (
-            <motion.div 
+            <motion.div
               whileHover={{ y: -10 }}
               className="rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-surface"
             >
-              <img 
-                src={step.image} 
-                alt={step.title} 
-                className="w-full h-auto object-cover" 
-                referrerPolicy="no-referrer"
-              />
+              <picture>
+                {step.webp && <source srcSet={step.webp} type="image/webp" />}
+                <img
+                  src={step.image}
+                  alt={step.title}
+                  className="w-full h-auto object-cover"
+                  referrerPolicy="no-referrer"
+                  loading="lazy"
+                />
+              </picture>
             </motion.div>
           )}
         </motion.div>
