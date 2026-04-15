@@ -28,40 +28,23 @@ import {
   PlayCircle
 } from "lucide-react";
 import { useState, useEffect, ReactNode, FormEvent, memo } from "react";
-// @ts-ignore
 import logo from "./logo.png";
-// @ts-ignore
 import logoWebp from "./logo.webp";
-// @ts-ignore
 import imgPainel from "./painel.png";
-// @ts-ignore
 import imgPainelWebp from "./painel.webp";
-// @ts-ignore
 import imgPainel800 from "./painel-800.webp";
-// @ts-ignore
 import imgPainel1200 from "./painel-1200.webp";
-// @ts-ignore
 import imgMetas from "./metas.png";
-// @ts-ignore
 import imgMetasWebp from "./metas.webp";
-// @ts-ignore
 import imgMetas800 from "./metas-800.webp";
-// @ts-ignore
 import imgMetas1200 from "./metas-1200.webp";
-// @ts-ignore
-import imgProjecoes from "./projeções.png";
-// @ts-ignore
-import imgProjecoesWebp from "./projeções.webp";
-// @ts-ignore
-import imgProjecoes800 from "./projeções-800.webp";
-// @ts-ignore
-import imgProjecoes1200 from "./projeções-1200.webp";
-// @ts-ignore
-import imgTelaInicial from "./tela inicial.webp";
-// @ts-ignore
+import imgProjecoes from "./projecoes.png";
+import imgProjecoesWebp from "./projecoes.webp";
+import imgProjecoes800 from "./projecoes-800.webp";
+import imgProjecoes1200 from "./projecoes-1200.webp";
+import imgTelaInicial from "./tela-inicial.webp";
 import imgTutorial from "./tutorial.webp";
-// @ts-ignore
-import imgCriarConta from "./criar conta.webp";
+import imgCriarConta from "./criar-conta.webp";
 
 const ContactModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
   const [name, setName] = useState("");
