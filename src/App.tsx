@@ -368,19 +368,19 @@ const HowItWorks = memo(() => (
           icon: UserPlus, 
           title: "1. Cadastro Rápido", 
           desc: "Crie sua conta em segundos usando seu e-mail. Sem burocracia e pronto para usar.",
-          image: imgCriarConta
+          image: src="/criar conta.png"
         },
         { 
           icon: Settings2, 
           title: "2. Perfil Profissional", 
           desc: "Configure os dados da sua atividade para personalizar o sistema para sua realidade de negócio.",
-          image: imgTelaInicial
+          image: src="/tela inicial.png"
         },
         { 
           icon: PlayCircle, 
           title: "3. Tutorial Guiado", 
           desc: "Após a conclusão do cadastro você é direcionado ao tutorial, para entender as principais funcionalidades na prática.",
-          image: imgTutorial
+          image: src="/tutorial.png"
         }
       ].map((step, i) => (
         <motion.div 
@@ -805,7 +805,7 @@ export default function App() {
               <DetailedFeature 
                 title="Painel Dashboard"
                 description="Você terá o resumo de suas operações com diversas dicas e análises detalhadas para tomar as melhores decisões para o seu negócio."
-                image={imgPainel}
+                image=src="/painel.png"
                 webp={imgPainelWebp}
                 srcset={`${imgPainel800} 800w, ${imgPainel1200} 1200w, ${imgPainelWebp} 1920w`}
               />
@@ -813,14 +813,14 @@ export default function App() {
                 reverse
                 title="Metas Financeiras"
                 description="Crie metas personalizadas para investimentos e reduções de gastos. Acompanhe o progresso em tempo real diretamente no seu painel principal."
-                image={imgMetas}
+                image=src="/metas.png"
                 webp={imgMetasWebp}
                 srcset={`${imgMetas800} 800w, ${imgMetas1200} 1200w, ${imgMetasWebp} 1920w`}
               />
               <DetailedFeature 
                 title="Projeções Financeiras"
                 description="Com base em seus dados históricos, acompanhe a projeção do seu saldo futuro e avalie a melhor maneira de gerir seus resultados a longo prazo."
-                image={imgProjecoes}
+                image=src="/proejções.png"
                 webp={imgProjecoesWebp}
                 srcset={`${imgProjecoes800} 800w, ${imgProjecoes1200} 1200w, ${imgProjecoesWebp} 1920w`}
               />
