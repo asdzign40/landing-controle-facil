@@ -43,8 +43,11 @@ import imgProjecoesWebp from "./projecoes.webp";
 import imgProjecoes800 from "./projecoes-800.webp";
 import imgProjecoes1200 from "./projecoes-1200.webp";
 import imgTelaInicial from "./tela-inicial.webp";
+import imgTelaInicialPng from "./tela-inicial.png";
 import imgTutorial from "./tutorial.webp";
+import imgTutorialPng from "./tutorial.png";
 import imgCriarConta from "./criar-conta.webp";
+import imgCriarContaPng from "./criar-conta.png";
 
 const ContactModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
   const [name, setName] = useState("");
@@ -378,23 +381,26 @@ const HowItWorks = memo(() => (
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
       {[
-        { 
-          icon: UserPlus, 
-          title: "1. Cadastro Rápido", 
+        {
+          icon: UserPlus,
+          title: "1. Cadastro Rápido",
           desc: "Crie sua conta em segundos usando seu e-mail. Sem burocracia e pronto para usar.",
-          image: imgCriarConta
+          image: imgCriarContaPng,
+          webp: imgCriarConta
         },
-        { 
-          icon: Settings2, 
-          title: "2. Perfil Profissional", 
+        {
+          icon: Settings2,
+          title: "2. Perfil Profissional",
           desc: "Configure os dados da sua atividade para personalizar o sistema para sua realidade de negócio.",
-          image: imgTelaInicial
+          image: imgTelaInicialPng,
+          webp: imgTelaInicial
         },
-        { 
-          icon: PlayCircle, 
-          title: "3. Tutorial Guiado", 
+        {
+          icon: PlayCircle,
+          title: "3. Tutorial Guiado",
           desc: "Após a conclusão do cadastro você é direcionado ao tutorial, para entender as principais funcionalidades na prática.",
-          image: imgTutorial
+          image: imgTutorialPng,
+          webp: imgTutorial
         }
       ].map((step, i) => (
         <motion.div 
@@ -418,16 +424,20 @@ const HowItWorks = memo(() => (
           <p className="text-brand-text-muted leading-relaxed mb-8">{step.desc}</p>
           
           {step.image && (
-            <motion.div 
+            <motion.div
               whileHover={{ y: -10 }}
               className="rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-surface"
             >
-              <img 
-                src={step.image} 
-                alt={step.title} 
-                className="w-full h-auto object-cover" 
-                referrerPolicy="no-referrer"
-              />
+              <picture>
+                {step.webp && <source srcSet={step.webp} type="image/webp" />}
+                <img
+                  src={step.image}
+                  alt={step.title}
+                  className="w-full h-auto object-cover"
+                  referrerPolicy="no-referrer"
+                  loading="lazy"
+                />
+              </picture>
             </motion.div>
           )}
         </motion.div>
