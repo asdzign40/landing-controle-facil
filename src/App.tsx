@@ -806,23 +806,20 @@ export default function App() {
                 title="Painel Dashboard"
                 description="Você terá o resumo de suas operações com diversas dicas e análises detalhadas para tomar as melhores decisões para o seu negócio."
                 image="/painel.png"
-                webp=imgPainelWebp
-                srcset={`${imgPainel800} 800w, ${imgPainel1200} 1200w, ${imgPainelWebp} 1920w`}
+               
               />
               <DetailedFeature 
                 reverse
                 title="Metas Financeiras"
                 description="Crie metas personalizadas para investimentos e reduções de gastos. Acompanhe o progresso em tempo real diretamente no seu painel principal."
                 image="/metas.png"
-                webp=imgMetasWebp
-                srcset={`${imgMetas800} 800w, ${imgMetas1200} 1200w, ${imgMetasWebp} 1920w`}
+              }
               />
               <DetailedFeature 
                 title="Projeções Financeiras"
                 description="Com base em seus dados históricos, acompanhe a projeção do seu saldo futuro e avalie a melhor maneira de gerir seus resultados a longo prazo."
                 image="/proejções.png"
-                webp=imgProjecoesWebp
-                srcset={`${imgProjecoes800} 800w, ${imgProjecoes1200} 1200w, ${imgProjecoesWebp} 1920w`}
+         
               />
             </div>
           </div>
