@@ -27,25 +27,41 @@ import {
   Settings2,
   PlayCircle
 } from "lucide-react";
-import { useState, useEffect, ReactNode, FormEvent, memo } from "react";
-
-const logo = "/logo.png";
-const logoWebp = "/logo.webp";
-const imgPainel = "/painel.png";
-const imgPainelWebp = "/painel.webp";
-const imgPainel800 = "/painel-800.webp";
-const imgPainel1200 = "/painel-1200.webp";
-const imgMetas = "/metas.png";
-const imgMetasWebp = "/metas.webp";
-const imgMetas800 = "/metas-800.webp";
-const imgMetas1200 = "/metas-1200.webp";
-const imgProjecoes = "/projecoes.png";
-const imgProjecoesWebp = "/projecoes.webp";
-const imgProjecoes800 = "/projecoes-800.webp";
-const imgProjecoes1200 = "/projecoes-1200.webp";
-const imgTelaInicial = "/tela-inicial.webp";
-const imgTutorial = "/tutorial.webp";
-const imgCriarConta = "/criar-conta.webp";
+import { useState, useEffect, ReactNode, FormEvent, memo, useRef } from "react";
+// @ts-ignore
+import logo from "./logo.png";
+// @ts-ignore
+import logoWebp from "./logo.webp";
+// @ts-ignore
+import imgPainel from "./painel.png";
+// @ts-ignore
+import imgPainelWebp from "./painel.webp";
+// @ts-ignore
+import imgPainel800 from "./painel-800.webp";
+// @ts-ignore
+import imgPainel1200 from "./painel-1200.webp";
+// @ts-ignore
+import imgMetas from "./metas.png";
+// @ts-ignore
+import imgMetasWebp from "./metas.webp";
+// @ts-ignore
+import imgMetas800 from "./metas-800.webp";
+// @ts-ignore
+import imgMetas1200 from "./metas-1200.webp";
+// @ts-ignore
+import imgProjecoes from "./projeções.png";
+// @ts-ignore
+import imgProjecoesWebp from "./projecoes.webp";
+// @ts-ignore
+import imgProjecoes800 from "./projecoes-800.webp";
+// @ts-ignore
+import imgProjecoes1200 from "./projecoes-1200.webp";
+// @ts-ignore
+import imgTelaInicial from "./tela-inicial.webp";
+// @ts-ignore
+import imgTutorial from "./tutorial.webp";
+// @ts-ignore
+import imgCriarConta from "./criar-conta.webp";
 
 const ContactModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
   const [name, setName] = useState("");
@@ -172,15 +188,36 @@ const ResponsiveImage = memo(({
   priority?: boolean
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (imgRef.current?.complete) {
+      setIsLoaded(true);
+    }
+    
+    // Safety timeout to force show image after 2 seconds
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 2000);
+    
+    return () => clearTimeout(timer);
+  }, [src, webp, srcset]);
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`relative overflow-hidden bg-brand-surface/30 ${className}`}>
       {!isLoaded && (
-        <div className="absolute inset-0 bg-white/5 animate-pulse" />
+        <div className="absolute inset-0 bg-white/5 animate-pulse flex items-center justify-center">
+           <div className="w-8 h-8 border-2 border-brand-accent/20 border-t-brand-accent rounded-full animate-spin" />
+        </div>
       )}
-      <picture className={className}>
-        {webp && <source srcSet={srcset || webp} type="image/webp" />}
+      <picture className="w-full h-full">
+        {srcset ? (
+          <source srcSet={srcset} type="image/webp" />
+        ) : webp ? (
+          <source srcSet={webp} type="image/webp" />
+        ) : null}
         <motion.img 
+          ref={imgRef}
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoaded ? 1 : 0 }}
           transition={{ duration: 0.5 }}
@@ -188,9 +225,10 @@ const ResponsiveImage = memo(({
           alt={alt} 
           loading={loading}
           onLoad={() => setIsLoaded(true)}
+          onError={() => setIsLoaded(true)}
           // @ts-ignore
           fetchPriority={priority ? "high" : "auto"}
-          className={className}
+          className={`${className} w-full h-auto block`}
           referrerPolicy="no-referrer"
         />
       </picture>
@@ -254,7 +292,7 @@ const DetailedFeature = memo(({
         viewport={{ once: true }}
         className="flex-1 w-full"
       >
-        <div className="glass rounded-[2rem] overflow-hidden shadow-2xl border border-brand-border/50 group relative">
+        <div className="glass rounded-[2rem] overflow-hidden shadow-2xl border border-brand-border/50 group relative min-h-[300px] flex items-center justify-center bg-brand-surface/50">
           <div className="absolute inset-0 bg-gradient-to-tr from-brand-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           <ResponsiveImage 
             src={image} 
@@ -572,6 +610,9 @@ export default function App() {
   );
 
   useEffect(() => {
+    // Apply theme to document
+    document.documentElement.classList.toggle("light", theme === "light");
+    
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
       setShowBackToTop(window.scrollY > 500);
@@ -588,7 +629,7 @@ export default function App() {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [visibleFaqs]);
+  }, [visibleFaqs, theme]);
 
   return (
     <div className="min-h-screen bg-brand-bg selection:bg-brand-accent selection:text-white overflow-x-hidden flex flex-col relative">
@@ -607,7 +648,6 @@ export default function App() {
             <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center shadow-lg shadow-brand-accent/10 border border-brand-border">
               <ResponsiveImage 
                 src={logo} 
-                webp={logoWebp}
                 alt="ControleFácil Logo" 
                 className="w-full h-full object-cover" 
                 loading="eager"
@@ -821,23 +861,17 @@ export default function App() {
                 title="Painel Dashboard"
                 description="Você terá o resumo de suas operações com diversas dicas e análises detalhadas para tomar as melhores decisões para o seu negócio."
                 image={imgPainel}
-                webp={imgPainelWebp}
-                srcset={`${imgPainel800} 800w, ${imgPainel1200} 1200w, ${imgPainelWebp} 1920w`}
               />
               <DetailedFeature 
                 reverse
                 title="Metas Financeiras"
                 description="Crie metas personalizadas para investimentos e reduções de gastos. Acompanhe o progresso em tempo real diretamente no seu painel principal."
                 image={imgMetas}
-                webp={imgMetasWebp}
-                srcset={`${imgMetas800} 800w, ${imgMetas1200} 1200w, ${imgMetasWebp} 1920w`}
               />
               <DetailedFeature 
                 title="Projeções Financeiras"
                 description="Com base em seus dados históricos, acompanhe a projeção do seu saldo futuro e avalie a melhor maneira de gerir seus resultados a longo prazo."
                 image={imgProjecoes}
-                webp={imgProjecoesWebp}
-                srcset={`${imgProjecoes800} 800w, ${imgProjecoes1200} 1200w, ${imgProjecoesWebp} 1920w`}
               />
             </div>
           </div>
